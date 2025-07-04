@@ -1,10 +1,12 @@
 package br.com.meli.teamcubation_spring_data_exercicios.atleta.controller;
 
 import br.com.meli.teamcubation_spring_data_exercicios.atleta.dto.AtletaResponseDTO;
+import br.com.meli.teamcubation_spring_data_exercicios.atleta.dto.AtletaTimeResponseDTO;
 import br.com.meli.teamcubation_spring_data_exercicios.atleta.dto.CriarAtletaRequestDTO;
 import br.com.meli.teamcubation_spring_data_exercicios.atleta.dto.mapper.AtletaResponseMapper;
 import br.com.meli.teamcubation_spring_data_exercicios.atleta.model.Atleta;
 import br.com.meli.teamcubation_spring_data_exercicios.atleta.service.BuscarAtletaService;
+import br.com.meli.teamcubation_spring_data_exercicios.atleta.service.BuscarAtletaTimeService;
 import br.com.meli.teamcubation_spring_data_exercicios.atleta.service.CriarAtletaService;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
@@ -17,10 +19,12 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/atleta")
 public class AtletaApiController {
     private final BuscarAtletaService buscarAtletaService;
+    private final BuscarAtletaTimeService buscarAtletaTimeService;
     private final CriarAtletaService criarAtletaService;
 
-    public AtletaApiController(BuscarAtletaService buscarAtletaService, CriarAtletaService criarAtletaService) {
+    public AtletaApiController(BuscarAtletaService buscarAtletaService, BuscarAtletaTimeService buscarAtletaTimeService, CriarAtletaService criarAtletaService) {
         this.buscarAtletaService = buscarAtletaService;
+        this.buscarAtletaTimeService = buscarAtletaTimeService;
         this.criarAtletaService = criarAtletaService;
     }
 
@@ -28,6 +32,11 @@ public class AtletaApiController {
     public Page<AtletaResponseDTO> listar(Pageable pageable) {
         return buscarAtletaService.listarAtletas(pageable)
                 .map(AtletaResponseMapper::toAtletaResponseDTO);
+    }
+
+    @GetMapping("/time")
+    public Page<AtletaTimeResponseDTO> listarNomesDeAtletasETimes(Pageable pageable) {
+        return buscarAtletaTimeService.listarNomesDeAtletasETimes(pageable);
     }
 
     @GetMapping("/{id}")
