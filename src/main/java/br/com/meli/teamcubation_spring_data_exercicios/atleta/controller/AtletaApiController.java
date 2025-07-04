@@ -7,6 +7,8 @@ import br.com.meli.teamcubation_spring_data_exercicios.atleta.model.Atleta;
 import br.com.meli.teamcubation_spring_data_exercicios.atleta.service.BuscarAtletaService;
 import br.com.meli.teamcubation_spring_data_exercicios.atleta.service.CriarAtletaService;
 import jakarta.validation.Valid;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,6 +22,12 @@ public class AtletaApiController {
     public AtletaApiController(BuscarAtletaService buscarAtletaService, CriarAtletaService criarAtletaService) {
         this.buscarAtletaService = buscarAtletaService;
         this.criarAtletaService = criarAtletaService;
+    }
+
+    @GetMapping
+    public Page<AtletaResponseDTO> listar(Pageable pageable) {
+        return buscarAtletaService.listarAtletas(pageable)
+                .map(AtletaResponseMapper::toAtletaResponseDTO);
     }
 
     @GetMapping("/{id}")
