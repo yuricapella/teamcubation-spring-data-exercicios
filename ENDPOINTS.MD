@@ -1,11 +1,3 @@
-Agora ficou 100% mais claro, obrigado pelos códigos!  
-Seguindo **exatamente como suas classes e DTOs funcionam**, aqui está uma versão corrigida e fiel do ENDPOINTS.md, com exemplos de request e response do jeito que a sua API responde (ou seja, **os DTOs só retornam os campos filtrados mesmo, nunca as entidades completas!**):
-
----
-
-```markdown
-# ENDPOINTS.md
-
 ## Endpoints REST
 
 A API expõe endpoints para manipulação das entidades **Time** e **Atleta**, utilizando DTOs para **retornar apenas os campos relevantes** (por exemplo, nome, posição, país). Alguns endpoints são inspirados diretamente em exercícios de SQL.
