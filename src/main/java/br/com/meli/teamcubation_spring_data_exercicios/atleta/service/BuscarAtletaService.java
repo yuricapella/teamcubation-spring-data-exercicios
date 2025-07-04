@@ -7,7 +7,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -25,5 +24,9 @@ public class BuscarAtletaService {
 
     public Page<Atleta> listarAtletas(Pageable pageable) {
         return atletaRepository.findAll(pageable);
+    }
+
+    public Page<Atleta> listarPorPosicao(String posicao, Pageable pageable) {
+        return atletaRepository.buscarPorPosicao(posicao,pageable);
     }
 }

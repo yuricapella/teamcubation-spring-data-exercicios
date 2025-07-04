@@ -38,6 +38,14 @@ public class AtletaApiController {
                 .body(AtletaResponseMapper.toAtletaResponseDTO(atletaRetornado));
     }
 
+    @GetMapping("/posicao")
+    public Page<AtletaResponseDTO> buscarPorPosicao(
+            @RequestParam String posicao, Pageable pageable) {
+
+        return buscarAtletaService.listarPorPosicao(posicao, pageable)
+                .map(AtletaResponseMapper::toAtletaResponseDTO);
+    }
+
     @PostMapping
     public ResponseEntity<AtletaResponseDTO> criar(@RequestBody @Valid CriarAtletaRequestDTO criarAtletaRequestDTO) {
         Atleta atletaCriado = criarAtletaService.criarAtleta(criarAtletaRequestDTO);
