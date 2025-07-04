@@ -4,6 +4,8 @@ import br.com.meli.teamcubation_spring_data_exercicios.time.dto.TimeResponseDTO;
 import br.com.meli.teamcubation_spring_data_exercicios.time.dto.mapper.TimeResponseMapper;
 import br.com.meli.teamcubation_spring_data_exercicios.time.model.Time;
 import br.com.meli.teamcubation_spring_data_exercicios.time.service.BuscarTimeService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +20,12 @@ public class TimeApiController {
 
     public TimeApiController(BuscarTimeService buscarTimeService) {
         this.buscarTimeService = buscarTimeService;
+    }
+
+    @GetMapping
+    public Page<TimeResponseDTO> listar(Pageable pageable) {
+        return buscarTimeService.listarTimes(pageable)
+                .map(TimeResponseMapper::toTimeResponseDTO);
     }
 
     @GetMapping("/{id}")
