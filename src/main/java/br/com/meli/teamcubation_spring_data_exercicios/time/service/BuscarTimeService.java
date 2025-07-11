@@ -1,11 +1,12 @@
 package br.com.meli.teamcubation_spring_data_exercicios.time.service;
 
-import br.com.meli.teamcubation_spring_data_exercicios.time.exception.TimeNaoEncontradoException;
 import br.com.meli.teamcubation_spring_data_exercicios.time.model.Time;
 import br.com.meli.teamcubation_spring_data_exercicios.time.repository.TimeRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Optional;
 
@@ -19,7 +20,8 @@ public class BuscarTimeService {
 
     public Time buscarTimePorId(Integer id) {
         Optional<Time> timeOptional = timeRepository.findById(id);
-        return timeOptional.orElseThrow(() -> new TimeNaoEncontradoException(id));
+        return timeOptional.orElseThrow
+                (() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Time com id "+ id + " não encontrado"));
     }
 
     public Page<Time> listarTimes(Pageable pageable) {
