@@ -17,7 +17,7 @@ public class BuscarAtletaService {
         this.atletaRepository = atletaRepository;
     }
 
-    public Atleta buscarPorId(Integer id) {
+    public Atleta buscarPorId(Integer id) throws AtletaNaoEncontradoException {
         Optional<Atleta> atletaOptional = atletaRepository.findById(id);
         return atletaOptional.orElseThrow(() -> new AtletaNaoEncontradoException(id));
     }

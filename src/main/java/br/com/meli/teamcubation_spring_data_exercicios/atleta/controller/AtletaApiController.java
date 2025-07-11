@@ -4,6 +4,7 @@ import br.com.meli.teamcubation_spring_data_exercicios.atleta.dto.AtletaResponse
 import br.com.meli.teamcubation_spring_data_exercicios.atleta.dto.AtletaTimeResponseDTO;
 import br.com.meli.teamcubation_spring_data_exercicios.atleta.dto.CriarAtletaRequestDTO;
 import br.com.meli.teamcubation_spring_data_exercicios.atleta.dto.mapper.AtletaResponseMapper;
+import br.com.meli.teamcubation_spring_data_exercicios.atleta.exception.AtletaNaoEncontradoException;
 import br.com.meli.teamcubation_spring_data_exercicios.atleta.model.Atleta;
 import br.com.meli.teamcubation_spring_data_exercicios.atleta.service.BuscarAtletaService;
 import br.com.meli.teamcubation_spring_data_exercicios.atleta.service.BuscarAtletaTimeService;
@@ -40,7 +41,7 @@ public class AtletaApiController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<AtletaResponseDTO> buscarPorId(@PathVariable Integer id) {
+    public ResponseEntity<AtletaResponseDTO> buscarPorId(@PathVariable Integer id) throws AtletaNaoEncontradoException {
         Atleta atletaRetornado = buscarAtletaService.buscarPorId(id);
         return ResponseEntity
                 .status(HttpStatus.OK)
