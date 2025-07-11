@@ -7,7 +7,7 @@ public class Exercicio03 {
             teste();
             System.out.println("segundo print");
         }catch (Exception e){
-            System.out.println("lançou execeção");
+            System.out.println("lançou exceção");
         }finally {
             System.out.println("print final");
         }
